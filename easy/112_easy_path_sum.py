@@ -27,6 +27,7 @@ Output: false
 Explanation: Since the tree is empty, there are no root-to-leaf paths.
 """
 
+from token import OP
 from typing import Optional
 
 # Define TreeNode class
@@ -52,6 +53,25 @@ def hasPathSum(root: Optional[TreeNode], targetSum: int) -> bool:
     right = hasPathSum(root.right, target)
 
     return left or right
+
+def hasPathSumIterative(root: Optional[TreeNode], targetSum: int) -> bool:
+    if root is None:
+        return False
+
+    stack = [(root, 0)]
+    while stack:
+        node, currentSum = stack.pop()
+        currentSum = currentSum + node.val
+        if node.left is None and node.right is None:
+            if currentSum == targetSum:
+                return True
+        if node.left:
+            stack.append((node.left, currentSum))
+        if node.right:
+            stack.append((node.right, currentSum))
+    
+    return False
+
 
 def create_tree_from_list(values: list) -> Optional[TreeNode]:
     """
