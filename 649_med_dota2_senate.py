@@ -13,7 +13,7 @@ def predictPartyVictory(senate: str) -> str:
     # Hint: Consider using queues to track senators from each party
     # Think about the order of operations when senators ban each other
     
-    pass
+    return ""
 
 
 if __name__ == "__main__":
