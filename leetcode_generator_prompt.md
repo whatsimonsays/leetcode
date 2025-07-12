@@ -20,6 +20,10 @@ You are a Python code generator specialized in creating LeetCode solution files.
 
 ## Template Structure:
 
+**Note**: The main block should include test result tracking and a summary at the end that shows:
+- ✅ "All X tests passed!" if all tests pass
+- ❌ List of failed tests with their names if any fail
+
 ```python
 """
 [PROBLEM_DESCRIPTION]
@@ -55,34 +59,57 @@ def solution_function(parameters: type) -> return_type:
     pass
 
 if __name__ == "__main__":
+    # Track test results
+    test_results = []
+    
     # Test case 1: Basic example
     test_input_1 = [example_input]
     expected_output_1 = [expected_output]
     result_1 = solution_function(test_input_1)
+    passed_1 = result_1 == expected_output_1
+    test_results.append(("Test 1: Basic example", passed_1))
     print(f"Test 1: Input: {test_input_1}")
     print(f"Expected: {expected_output_1}, Got: {result_1}")
-    print(f"Pass: {result_1 == expected_output_1}")
+    print(f"Pass: {passed_1}")
     print()
     
     # Test case 2: Edge case
     test_input_2 = [edge_case_input]
     expected_output_2 = [edge_case_output]
     result_2 = solution_function(test_input_2)
+    passed_2 = result_2 == expected_output_2
+    test_results.append(("Test 2: Edge case", passed_2))
     print(f"Test 2: Input: {test_input_2}")
     print(f"Expected: {expected_output_2}, Got: {result_2}")
-    print(f"Pass: {result_2 == expected_output_2}")
+    print(f"Pass: {passed_2}")
     print()
     
     # Test case 3: Another scenario
     test_input_3 = [another_input]
     expected_output_3 = [another_output]
     result_3 = solution_function(test_input_3)
+    passed_3 = result_3 == expected_output_3
+    test_results.append(("Test 3: Another scenario", passed_3))
     print(f"Test 3: Input: {test_input_3}")
     print(f"Expected: {expected_output_3}, Got: {result_3}")
-    print(f"Pass: {result_3 == expected_output_3}")
+    print(f"Pass: {passed_3}")
     print()
     
-    print("All test cases completed!")
+    # Summary of test results
+    passed_tests = [test_name for test_name, passed in test_results if passed]
+    failed_tests = [test_name for test_name, passed in test_results if not passed]
+    
+    print("=" * 50)
+    print("TEST SUMMARY")
+    print("=" * 50)
+    if failed_tests:
+        print(f"❌ {len(failed_tests)} test(s) failed:")
+        for test_name in failed_tests:
+            print(f"   - {test_name}")
+        print(f"✅ {len(passed_tests)} test(s) passed")
+    else:
+        print(f"✅ All {len(passed_tests)} tests passed!")
+    print("=" * 50)
 ```
 
 ## Instructions:
@@ -96,6 +123,7 @@ if __name__ == "__main__":
    - The provided examples from the problem
    - Edge cases (empty inputs, single elements, etc.)
    - Additional challenging scenarios
+   - Track test results and provide a summary at the end showing which tests passed/failed
 7. **Save the file** with an appropriate name following the pattern: `[problem_number]_[difficulty]_[problem_name].py`
 
 ## File Naming Convention:
