@@ -44,20 +44,31 @@ def lowestCommonAncestor(root: Optional[TreeNode], p: Optional[TreeNode], q: Opt
     Find the lowest common ancestor of two nodes in a binary tree.
     
     Intuition:
-    [Leave this section empty for student implementation]
+    theres three cases. 
+    ...the base case is that if a node is null meaning we didnt return 
+        and we didnt find p or q just return None
+    1. First case being that root is p or root is q so we can immediately return root
+    because according to the definition of LCA, a node can be its own ancestor.
+    2. if p is in the left subtree and q is in the right subtree...
+            i.e both calls returned something not null
+            i.e we found p and q  then we can immediately return root
+    3. since we checked left and right and we didnt return then we just return either left or right
     """
     if root is None:
         return None
 
+    # first case
     if root == p or root == q:
         return root
     
     left = lowestCommonAncestor(root.left, p, q)
     right = lowestCommonAncestor(root.right, p, q)
 
+    # second case
     if left and right:
         return root
     
+    # third case
     if left:
         return left
     
