@@ -24,6 +24,7 @@ You are a Python code generator specialized in creating LeetCode solution files.
 **Note**: The main block should include test result tracking and a summary at the end that shows:
 - ✅ "All X tests passed!" if all tests pass
 - ❌ List of failed tests with their names if any fail
+- Make sure to double check test cases for correctness.
 
 ```python
 """
