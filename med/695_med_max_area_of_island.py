@@ -30,15 +30,46 @@ Explanation: There is no island, so we return 0.
 """
 
 from typing import List
+from collections import deque
 
 def maxAreaOfIsland(grid: List[List[int]]) -> int:
     """
     Find the maximum area of an island in the given grid.
     
     Intuition:
-    [Leave this section empty for student implementation]
+    1. helper function in_bound
+    2. a variable named direction holding up down left right directions
+    3. a seen 2d array to implement bfs
+    4. a variable holding max_area
+    5. inside the while loop and before the queue init a current area to 0
     """
-    pass
+    m, n = len(grid), len(grid[0])
+    if not grid or n == 0:
+        return 0
+    def in_bound(x, y):
+        return (0 <= x < m) and (0 <= y < n)
+    
+    dirs = [(0,1), (0,-1), (-1,0), (1,0)] # UP DOWN LEFT RIGHT
+    seen = [[False] * n for _ in range(m)] # O(1) lookup and space, no hash
+    max_area = 0
+
+    for i in range(m):
+        for j in range(n):
+            if grid[i][j] == 1 and not seen[i][j]:
+                seen[i][j] = True
+                curr_area = 1
+                queue = deque([(i,j)])
+                
+                while queue:
+                    x, y = queue.popleft()
+                    for dx, dy in dirs:
+                        nx, ny = x + dx, y + dy
+                        if in_bound(nx, ny) and not seen[nx][ny] and grid[nx][ny] == 1:
+                            seen[nx][ny] = True
+                            queue.append((nx, ny))
+                            curr_area += 1
+                max_area = max(max_area, curr_area)
+    return max_area
 
 if __name__ == "__main__":
     # Define test cases as tuples: (name, grid, expected)
@@ -50,7 +81,6 @@ if __name__ == "__main__":
         ("Example 2", [[0,0,0,0,0,0,0,0]], 0),
         ("Single island", [[1]], 1),
         ("No islands", [[0,0,0],[0,0,0],[0,0,0]], 0),
-        ("Multiple small islands", [[1,0,1],[0,1,0],[1,0,1]], 1),
         ("Large connected island", [[1,1,1],[1,1,1],[1,1,1]], 9),
         ("Island with hole", [[1,1,1],[1,0,1],[1,1,1]], 8),
         ("Diagonal islands (not connected)", [[1,0,1],[0,1,0],[1,0,1]], 1),
@@ -59,7 +89,7 @@ if __name__ == "__main__":
         ("Single column with islands", [[1],[0],[1],[0],[1]], 1),
         ("All ones", [[1,1],[1,1]], 4),
         ("All zeros", [[0,0],[0,0]], 0),
-        ("Mixed grid", [[0,1,0,0],[1,1,1,0],[0,1,0,0],[1,1,0,0]], 6),
+        ("Mixed grid", [[0,1,0,0],[1,1,1,0],[0,1,0,0],[1,1,0,0]], 7),
     ]
     
     # Track test results
