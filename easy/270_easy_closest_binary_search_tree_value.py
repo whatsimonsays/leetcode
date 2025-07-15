@@ -34,7 +34,8 @@ def closestValue(root: Optional[TreeNode], target: float) -> int:
     difference between two values. 
     """
     if not root:
-        return 0
+        raise ValueError("Cannot find closest value in empty tree")
+    
     closest = root.val
     while root:
         closest = min(root.val, closest, key=lambda x: (abs(target-x), x))
