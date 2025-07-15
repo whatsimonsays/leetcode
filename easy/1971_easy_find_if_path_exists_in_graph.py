@@ -71,148 +71,34 @@ def validPath(n: int, edges: List[List[int]], source: int, destination: int) -> 
     return ds.find(source) == ds.find(destination)
 
 if __name__ == "__main__":
+    # Define test cases as tuples: (name, n, edges, source, destination, expected)
+    test_cases = [
+        ("Example 1", 3, [[0,1],[1,2],[2,0]], 0, 2, True),
+        ("Example 2", 6, [[0,1],[0,2],[3,5],[5,4],[4,3]], 0, 5, False),
+        ("Single node", 1, [], 0, 0, True),
+        ("No edges", 3, [], 0, 2, False),
+        ("Direct edge exists", 2, [[0,1]], 0, 1, True),
+        ("Multiple paths exist", 4, [[0,1],[1,2],[2,3],[0,3]], 0, 3, True),
+        ("Disconnected components", 5, [[0,1],[2,3],[3,4]], 0, 4, False),
+        ("Large graph with path", 10, [[0,1],[1,2],[2,3],[3,4],[4,5],[5,6],[6,7],[7,8],[8,9]], 0, 9, True),
+        ("Large graph without path", 10, [[0,1],[1,2],[2,3],[3,4],[5,6],[6,7],[7,8],[8,9]], 0, 9, False),
+        ("Complex graph with cycles", 6, [[0,1],[1,2],[2,0],[2,3],[3,4],[4,5],[5,3]], 0, 5, True)
+    ]
+    
     # Track test results
     test_results = []
     
-    # Test case 1: Example 1 from problem
-    n_1 = 3
-    edges_1 = [[0,1],[1,2],[2,0]]
-    source_1 = 0
-    destination_1 = 2
-    expected_output_1 = True
-    result_1 = validPath(n_1, edges_1, source_1, destination_1)
-    passed_1 = result_1 == expected_output_1
-    test_results.append(("Test 1: Example 1", passed_1))
-    print(f"Test 1: n={n_1}, edges={edges_1}, source={source_1}, destination={destination_1}")
-    print(f"Expected: {expected_output_1}, Got: {result_1}")
-    print(f"Pass: {passed_1}")
-    print()
-    
-    # Test case 2: Example 2 from problem
-    n_2 = 6
-    edges_2 = [[0,1],[0,2],[3,5],[5,4],[4,3]]
-    source_2 = 0
-    destination_2 = 5
-    expected_output_2 = False
-    result_2 = validPath(n_2, edges_2, source_2, destination_2)
-    passed_2 = result_2 == expected_output_2
-    test_results.append(("Test 2: Example 2", passed_2))
-    print(f"Test 2: n={n_2}, edges={edges_2}, source={source_2}, destination={destination_2}")
-    print(f"Expected: {expected_output_2}, Got: {result_2}")
-    print(f"Pass: {passed_2}")
-    print()
-    
-    # Test case 3: Single node (source equals destination)
-    n_3 = 1
-    edges_3 = []
-    source_3 = 0
-    destination_3 = 0
-    expected_output_3 = True
-    result_3 = validPath(n_3, edges_3, source_3, destination_3)
-    passed_3 = result_3 == expected_output_3
-    test_results.append(("Test 3: Single node", passed_3))
-    print(f"Test 3: n={n_3}, edges={edges_3}, source={source_3}, destination={destination_3}")
-    print(f"Expected: {expected_output_3}, Got: {result_3}")
-    print(f"Pass: {passed_3}")
-    print()
-    
-    # Test case 4: No edges
-    n_4 = 3
-    edges_4 = []
-    source_4 = 0
-    destination_4 = 2
-    expected_output_4 = False
-    result_4 = validPath(n_4, edges_4, source_4, destination_4)
-    passed_4 = result_4 == expected_output_4
-    test_results.append(("Test 4: No edges", passed_4))
-    print(f"Test 4: n={n_4}, edges={edges_4}, source={source_4}, destination={destination_4}")
-    print(f"Expected: {expected_output_4}, Got: {result_4}")
-    print(f"Pass: {passed_4}")
-    print()
-    
-    # Test case 5: Direct edge exists
-    n_5 = 2
-    edges_5 = [[0,1]]
-    source_5 = 0
-    destination_5 = 1
-    expected_output_5 = True
-    result_5 = validPath(n_5, edges_5, source_5, destination_5)
-    passed_5 = result_5 == expected_output_5
-    test_results.append(("Test 5: Direct edge exists", passed_5))
-    print(f"Test 5: n={n_5}, edges={edges_5}, source={source_5}, destination={destination_5}")
-    print(f"Expected: {expected_output_5}, Got: {result_5}")
-    print(f"Pass: {passed_5}")
-    print()
-    
-    # Test case 6: Multiple paths exist
-    n_6 = 4
-    edges_6 = [[0,1],[1,2],[2,3],[0,3]]
-    source_6 = 0
-    destination_6 = 3
-    expected_output_6 = True
-    result_6 = validPath(n_6, edges_6, source_6, destination_6)
-    passed_6 = result_6 == expected_output_6
-    test_results.append(("Test 6: Multiple paths exist", passed_6))
-    print(f"Test 6: n={n_6}, edges={edges_6}, source={source_6}, destination={destination_6}")
-    print(f"Expected: {expected_output_6}, Got: {result_6}")
-    print(f"Pass: {passed_6}")
-    print()
-    
-    # Test case 7: Disconnected components
-    n_7 = 5
-    edges_7 = [[0,1],[2,3],[3,4]]
-    source_7 = 0
-    destination_7 = 4
-    expected_output_7 = False
-    result_7 = validPath(n_7, edges_7, source_7, destination_7)
-    passed_7 = result_7 == expected_output_7
-    test_results.append(("Test 7: Disconnected components", passed_7))
-    print(f"Test 7: n={n_7}, edges={edges_7}, source={source_7}, destination={destination_7}")
-    print(f"Expected: {expected_output_7}, Got: {result_7}")
-    print(f"Pass: {passed_7}")
-    print()
-    
-    # Test case 8: Large graph with path
-    n_8 = 10
-    edges_8 = [[0,1],[1,2],[2,3],[3,4],[4,5],[5,6],[6,7],[7,8],[8,9]]
-    source_8 = 0
-    destination_8 = 9
-    expected_output_8 = True
-    result_8 = validPath(n_8, edges_8, source_8, destination_8)
-    passed_8 = result_8 == expected_output_8
-    test_results.append(("Test 8: Large graph with path", passed_8))
-    print(f"Test 8: n={n_8}, edges={edges_8}, source={source_8}, destination={destination_8}")
-    print(f"Expected: {expected_output_8}, Got: {result_8}")
-    print(f"Pass: {passed_8}")
-    print()
-    
-    # Test case 9: Large graph without path
-    n_9 = 10
-    edges_9 = [[0,1],[1,2],[2,3],[3,4],[5,6],[6,7],[7,8],[8,9]]
-    source_9 = 0
-    destination_9 = 9
-    expected_output_9 = False
-    result_9 = validPath(n_9, edges_9, source_9, destination_9)
-    passed_9 = result_9 == expected_output_9
-    test_results.append(("Test 9: Large graph without path", passed_9))
-    print(f"Test 9: n={n_9}, edges={edges_9}, source={source_9}, destination={destination_9}")
-    print(f"Expected: {expected_output_9}, Got: {result_9}")
-    print(f"Pass: {passed_9}")
-    print()
-    
-    # Test case 10: Complex graph with cycles
-    n_10 = 6
-    edges_10 = [[0,1],[1,2],[2,0],[2,3],[3,4],[4,5],[5,3]]
-    source_10 = 0
-    destination_10 = 5
-    expected_output_10 = True
-    result_10 = validPath(n_10, edges_10, source_10, destination_10)
-    passed_10 = result_10 == expected_output_10
-    test_results.append(("Test 10: Complex graph with cycles", passed_10))
-    print(f"Test 10: n={n_10}, edges={edges_10}, source={source_10}, destination={destination_10}")
-    print(f"Expected: {expected_output_10}, Got: {result_10}")
-    print(f"Pass: {passed_10}")
-    print()
+    # Run all test cases
+    for i, (name, n, edges, source, destination, expected) in enumerate(test_cases, 1):
+        result = validPath(n, edges, source, destination)
+        passed = result == expected
+        test_results.append((f"Test {i}: {name}", passed))
+        
+        print(f"Test {i}: {name}")
+        print(f"Input: n={n}, edges={edges}, source={source}, destination={destination}")
+        print(f"Expected: {expected}, Got: {result}")
+        print(f"Pass: {passed}")
+        print()
     
     # Summary of test results
     passed_tests = [test_name for test_name, passed in test_results if passed]

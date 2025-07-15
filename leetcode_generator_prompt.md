@@ -61,41 +61,33 @@ def solution_function(parameters: type) -> return_type:
     pass
 
 if __name__ == "__main__":
+    # Define test cases as tuples: (name, *args, expected)
+    # For single parameter functions: (name, input, expected)
+    # For multiple parameter functions: (name, param1, param2, ..., expected)
+    test_cases = [
+        ("Basic example", [example_input], [expected_output]),
+        ("Edge case", [edge_case_input], [edge_case_output]),
+        ("Another scenario", [another_input], [another_output]),
+        # Add more test cases as needed
+    ]
+    
     # Track test results
     test_results = []
     
-    # Test case 1: Basic example
-    test_input_1 = [example_input]
-    expected_output_1 = [expected_output]
-    result_1 = solution_function(test_input_1)
-    passed_1 = result_1 == expected_output_1
-    test_results.append(("Test 1: Basic example", passed_1))
-    print(f"Test 1: Input: {test_input_1}")
-    print(f"Expected: {expected_output_1}, Got: {result_1}")
-    print(f"Pass: {passed_1}")
-    print()
-    
-    # Test case 2: Edge case
-    test_input_2 = [edge_case_input]
-    expected_output_2 = [edge_case_output]
-    result_2 = solution_function(test_input_2)
-    passed_2 = result_2 == expected_output_2
-    test_results.append(("Test 2: Edge case", passed_2))
-    print(f"Test 2: Input: {test_input_2}")
-    print(f"Expected: {expected_output_2}, Got: {result_2}")
-    print(f"Pass: {passed_2}")
-    print()
-    
-    # Test case 3: Another scenario
-    test_input_3 = [another_input]
-    expected_output_3 = [another_output]
-    result_3 = solution_function(test_input_3)
-    passed_3 = result_3 == expected_output_3
-    test_results.append(("Test 3: Another scenario", passed_3))
-    print(f"Test 3: Input: {test_input_3}")
-    print(f"Expected: {expected_output_3}, Got: {result_3}")
-    print(f"Pass: {passed_3}")
-    print()
+    # Run all test cases
+    for i, (name, *args) in enumerate(test_cases, 1):
+        expected = args[-1]  # Last argument is always the expected result
+        inputs = args[:-1]   # All other arguments are inputs
+        
+        result = solution_function(*inputs)
+        passed = result == expected
+        test_results.append((f"Test {i}: {name}", passed))
+        
+        print(f"Test {i}: {name}")
+        print(f"Input: {inputs}")
+        print(f"Expected: {expected}, Got: {result}")
+        print(f"Pass: {passed}")
+        print()
     
     # Summary of test results
     passed_tests = [test_name for test_name, passed in test_results if passed]
@@ -121,7 +113,7 @@ if __name__ == "__main__":
 3. **Determine the required data structures** (arrays, strings, trees, graphs, etc.)
 4. **Identify the appropriate imports** needed for the solution
 5. **Create the solution function** with proper type hints and an empty "Intuition:" section
-6. **Generate comprehensive test cases** including:
+6. **Generate comprehensive test cases** using the compact tuple format:
    - The provided examples from the problem
    - Edge cases (empty inputs, single elements, etc.)
    - Additional challenging scenarios
@@ -133,11 +125,18 @@ if __name__ == "__main__":
 - Medium problems: `[number]_med_[name].py`  
 - Hard problems: `[number]_hard_[name].py`
 
+## Test Case Format:
+Use compact tuples for test cases:
+- **Single parameter**: `(name, input, expected)`
+- **Multiple parameters**: `(name, param1, param2, ..., expected)`
+- **Example**: `("Example 1", [1,2,3], 6)` or `("Graph test", 4, [[0,1],[1,2]], 2)`
+
 ## Example Output:
 When given a LeetCode link, you should generate a complete, runnable Python file that:
 - Can be executed immediately
 - Includes all necessary imports and class definitions
-- Has comprehensive test cases in the main block
+- Has comprehensive test cases in the main block using the compact tuple format
 - Follows the established code style patterns
 - Is ready for implementation (the solution function will be empty or have a basic structure)
 - Contains an empty "Intuition:" section in the docstring for students to fill in their own approach
+- IMPORTANT: DO NOT IMPLEMENT THE SOLUTION

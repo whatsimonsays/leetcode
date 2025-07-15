@@ -82,104 +82,33 @@ def build_tree(values: List[Any]) -> Optional[TreeNode]:
     return root
 
 if __name__ == "__main__":
+    # Define test cases as tuples: (name, tree_values, expected)
+    test_cases = [
+        ("Example 1", [1,3,2,5,3,None,9], [1,3,9]),
+        ("Example 2", [1,2,3], [1,3]),
+        ("Single node", [5], [5]),
+        ("Left-skewed tree", [10,5,None,3,None,1], [10,5,3,1]),
+        ("Right-skewed tree", [1,None,2,None,3,None,4], [1,2,3,4]),
+        ("Complex tree with multiple levels", [10,5,15,3,7,12,18,1,4,6,8,11,13,16,20], [10,15,18,20]),
+        ("Tree with negative values", [-10,-5,-15,-3,-7,-12,-18], [-10,-5,-3]),
+        ("Tree with mixed positive and negative values", [5,-3,8,1,-7,6,9], [5,8,9])
+    ]
+    
     # Track test results
     test_results = []
     
-    # Test case 1: Example 1 from problem
-    test_input_1 = [1,3,2,5,3,None,9]
-    expected_output_1 = [1,3,9]
-    root_1 = build_tree(test_input_1)
-    result_1 = largestValues(root_1)
-    passed_1 = result_1 == expected_output_1
-    test_results.append(("Test 1: Example 1", passed_1))
-    print(f"Test 1: Input: {test_input_1}")
-    print(f"Expected: {expected_output_1}, Got: {result_1}")
-    print(f"Pass: {passed_1}")
-    print()
-    
-    # Test case 2: Example 2 from problem
-    test_input_2 = [1,2,3]
-    expected_output_2 = [1,3]
-    root_2 = build_tree(test_input_2)
-    result_2 = largestValues(root_2)
-    passed_2 = result_2 == expected_output_2
-    test_results.append(("Test 2: Example 2", passed_2))
-    print(f"Test 2: Input: {test_input_2}")
-    print(f"Expected: {expected_output_2}, Got: {result_2}")
-    print(f"Pass: {passed_2}")
-    print()
-    
-    # Test case 3: Single node
-    test_input_3 = [5]
-    expected_output_3 = [5]
-    root_3 = build_tree(test_input_3)
-    result_3 = largestValues(root_3)
-    passed_3 = result_3 == expected_output_3
-    test_results.append(("Test 3: Single node", passed_3))
-    print(f"Test 3: Input: {test_input_3}")
-    print(f"Expected: {expected_output_3}, Got: {result_3}")
-    print(f"Pass: {passed_3}")
-    print()
-    
-    # Test case 4: Left-skewed tree
-    test_input_4 = [10,5,None,3,None,1]
-    expected_output_4 = [10,5,3,1]
-    root_4 = build_tree(test_input_4)
-    result_4 = largestValues(root_4)
-    passed_4 = result_4 == expected_output_4
-    test_results.append(("Test 4: Left-skewed tree", passed_4))
-    print(f"Test 4: Input: {test_input_4}")
-    print(f"Expected: {expected_output_4}, Got: {result_4}")
-    print(f"Pass: {passed_4}")
-    print()
-    
-    # Test case 5: Right-skewed tree
-    test_input_5 = [1,None,2,None,3,None,4]
-    expected_output_5 = [1,2,3,4]
-    root_5 = build_tree(test_input_5)
-    result_5 = largestValues(root_5)
-    passed_5 = result_5 == expected_output_5
-    test_results.append(("Test 5: Right-skewed tree", passed_5))
-    print(f"Test 5: Input: {test_input_5}")
-    print(f"Expected: {expected_output_5}, Got: {result_5}")
-    print(f"Pass: {passed_5}")
-    print()
-    
-    # Test case 6: Complex tree with multiple levels
-    test_input_6 = [10,5,15,3,7,12,18,1,4,6,8,11,13,16,20]
-    expected_output_6 = [10,15,18,20]
-    root_6 = build_tree(test_input_6)
-    result_6 = largestValues(root_6)
-    passed_6 = result_6 == expected_output_6
-    test_results.append(("Test 6: Complex tree with multiple levels", passed_6))
-    print(f"Test 6: Input: {test_input_6}")
-    print(f"Expected: {expected_output_6}, Got: {result_6}")
-    print(f"Pass: {passed_6}")
-    print()
-    
-    # Test case 7: Tree with negative values
-    test_input_7 = [-10,-5,-15,-3,-7,-12,-18]
-    expected_output_7 = [-10,-5,-3]
-    root_7 = build_tree(test_input_7)
-    result_7 = largestValues(root_7)
-    passed_7 = result_7 == expected_output_7
-    test_results.append(("Test 7: Tree with negative values", passed_7))
-    print(f"Test 7: Input: {test_input_7}")
-    print(f"Expected: {expected_output_7}, Got: {result_7}")
-    print(f"Pass: {passed_7}")
-    print()
-    
-    # Test case 8: Tree with mixed positive and negative values
-    test_input_8 = [5,-3,8,1,-7,6,9]
-    expected_output_8 = [5,8,9]
-    root_8 = build_tree(test_input_8)
-    result_8 = largestValues(root_8)
-    passed_8 = result_8 == expected_output_8
-    test_results.append(("Test 8: Tree with mixed positive and negative values", passed_8))
-    print(f"Test 8: Input: {test_input_8}")
-    print(f"Expected: {expected_output_8}, Got: {result_8}")
-    print(f"Pass: {passed_8}")
-    print()
+    # Run all test cases
+    for i, (name, tree_values, expected) in enumerate(test_cases, 1):
+        root = build_tree(tree_values)
+        result = largestValues(root)
+        passed = result == expected
+        test_results.append((f"Test {i}: {name}", passed))
+        
+        print(f"Test {i}: {name}")
+        print(f"Input: {tree_values}")
+        print(f"Expected: {expected}, Got: {result}")
+        print(f"Pass: {passed}")
+        print()
     
     # Summary of test results
     passed_tests = [test_name for test_name, passed in test_results if passed]
